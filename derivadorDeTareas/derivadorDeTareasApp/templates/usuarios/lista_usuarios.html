@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Usuarios</title>
+</head>
+<body>
+    <h1>Lista de Usuarios</h1>
+    <a href="{% url 'registrar_usuario' %}">Registrar Usuario</a>
+    <ul>
+        {% for usuario in usuarios %}
+        <li>
+            {{ usuario.nombre }} {{ usuario.apellido }} - <a href="{% url 'editar_usuario' usuario.pk %}">Editar</a>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

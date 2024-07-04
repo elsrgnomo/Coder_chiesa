@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ tarea.nombre }}</title>
+</head>
+<body>
+    <h1>{{ tarea.nombre }}</h1>
+    <p>{{ tarea.descripcion }}</p>
+    <p>Estado: {{ tarea.estado }}</p>
+    <h2>Comentarios</h2>
+    <ul>
+        {% for comentario in tarea.comentarios.all %}
+        <li>{{ comentario.comentario }} - {{ comentario.fecha }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Añadir Comentario</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Añadir</button>
+    </form>
+    <form method="get" action="{% url 'menu_principal' %}">
+        <button type="submit">Volver al Menú Principal</button>
+    </form>
+</body>
+</html>

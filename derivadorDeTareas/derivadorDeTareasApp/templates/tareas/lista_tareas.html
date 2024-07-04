@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Tareas</title>
+</head>
+<body>
+    <h1>Lista de Tareas</h1>
+    <ul>
+        {% for tarea in tareas %}
+        <li>
+            <a href="{% url 'detalle_tarea' tarea.pk %}">{{ tarea.nombre }}</a> - {{ tarea.estado }}
+        </li>
+        {% endfor %}
+    </ul>
+    <form method="get" action="{% url 'menu_principal' %}">
+        <button type="submit">Volver al Menú Principal</button>
+    </form>
+</body>
+</html>
