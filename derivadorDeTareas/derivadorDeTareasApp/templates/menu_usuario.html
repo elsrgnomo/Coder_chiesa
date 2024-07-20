@@ -1,14 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Menú Usuario</title>
-</head>
-<body>
-    <h1>Menú Usuario</h1>
-    <ul>
-        <li><a href="{% url 'lista_tareas' %}">Ver mis tareas</a></li>
-        <li><a href="{% url 'nueva_tarea' %}">Crear nueva tarea</a></li>
-        <li><a href="{% url 'login' %}">volver al login</a></li>
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Menú Usuario{% endblock %}
+
+{% block header %}
+<div class="m-4 m-lg-5">
+    <h2 class="display-5 fw-bold">Menú Usuario</h2>
+    <p class="fs-4">Acceda y gestione sus tareas de manera eficiente.</p>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row gx-lg-5">
+    <div class="col-lg-4 mb-5">
+        <div class="card bg-light border-0 h-100">
+            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-card-checklist"></i></div>
+                <h2 class="fs-4 fw-bold">Gestiona Tareas</h2>
+                <a class="btn btn-primary" href="{% url 'lista_tareas' %}">Ver Tareas</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 mb-5">
+        <div class="card bg-light border-0 h-100">
+            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-plus-circle"></i></div>
+                <h2 class="fs-4 fw-bold">Crear Nueva Tarea</h2>
+                <a class="btn btn-primary" href="{% url 'crear_tarea' %}">Crear Tarea</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 mb-5">
+        <div class="card bg-light border-0 h-100">
+            <div class="card-body text-center p-4 p-lg-5 pt-0 pt-lg-0">
+                <div class="feature bg-primary bg-gradient text-white rounded-3 mb-4 mt-n4"><i class="bi bi-key"></i></div>
+                <h2 class="fs-4 fw-bold">Gestion Usuario</h2>
+                <a class="btn btn-primary" href="{% url 'gestionar_usuario' %}">Gestion Usuario</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,17 +1,106 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Editar Tarea</title>
-</head>
-<body>
-    <h1>Editar Tarea</h1>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Guardar Cambios</button>
-    </form>
-    <form method="get" action="{% url 'menu_principal' %}">
-        <button type="submit">Volver al Menú Principal</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Editar Tarea{% endblock %}
+
+{% block breadcrumb %}
+<a href="{% if user.is_superuser %}{% url 'menu_admin' %}{% else %}{% url 'menu_usuario' %}{% endif %}" class="breadcrumb-item">Menú</a>
+<span class="breadcrumb-item active">Editar Tarea</span>
+{% endblock %}
+
+{% block header %}
+<div class="m-4 m-lg-5">
+    <h2 class="display-5 fw-bold">Editar Tarea</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="id_nombre" class="form-label text-left d-block">Nombre</label>
+            <div class="text-right">
+                {{ form.nombre }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="id_descripcion" class="form-label text-left d-block">Descripción</label>
+            <div class="text-right">
+                {{ form.descripcion }}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="id_fecha_inicio" class="form-label text-left d-block">Fecha Inicio</label>
+            <div class="text-right">
+                {{ form.fecha_inicio }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="id_fecha_fin" class="form-label text-left d-block">Fecha Fin</label>
+            <div class="text-right">
+                {{ form.fecha_fin }}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="id_prioridad" class="form-label text-left d-block">Prioridad</label>
+            <div class="text-right">
+                {{ form.prioridad }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="id_urgencia" class="form-label text-left d-block">Urgencia</label>
+            <div class="text-right">
+                {{ form.urgencia }}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="id_tarea_anterior" class="form-label text-left d-block">Tarea Anterior</label>
+            <div class="text-right">
+                {{ form.tarea_anterior }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="id_tarea_posterior" class="form-label text-left d-block">Tarea Posterior</label>
+            <div class="text-right">
+                {{ form.tarea_posterior }}
+            </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <label for="id_estado" class="form-label text-left d-block">Estado</label>
+            <div class="text-right">
+                {{ form.estado }}
+            </div>
+        </div>
+        <div class="col-md-6">
+            <label for="id_usuario" class="form-label text-left d-block">Asignar a</label>
+            <div class="text-right">
+                {{ form.usuario }}
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Guardar</button>
+</form>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const messages = document.getElementsByClassName('alert');
+        if (messages.length > 0) {
+            setTimeout(() => {
+                messages[0].remove();
+            }, 3000);
+            alert(messages[0].innerText);
+        }
+    });
+</script>
+{% endblock %}

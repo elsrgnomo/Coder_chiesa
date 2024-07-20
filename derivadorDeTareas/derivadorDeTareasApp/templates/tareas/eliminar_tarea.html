@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Eliminar Tarea{% endblock %}
+
+{% block breadcrumb %}
+<a href="{% url 'lista_tareas' %}" class="breadcrumb-item">Lista de Tareas</a>
+<span class="breadcrumb-item active">Eliminar Tarea</span>
+{% endblock %}
+
+{% block header %}
+<div class="m-4 m-lg-5">
+    <h2 class="display-5 fw-bold">Eliminar Tarea</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="alert alert-danger" role="alert">
+    ¿Estás seguro de que deseas eliminar la tarea "{{ tarea.nombre }}"?
+</div>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="{% url 'lista_tareas' %}" class="btn btn-secondary">Cancelar</a>
+</form>
+{% endblock %}

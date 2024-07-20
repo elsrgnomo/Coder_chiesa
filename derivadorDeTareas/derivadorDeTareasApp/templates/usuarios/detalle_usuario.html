@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle de Usuario{% endblock %}
+
+{% block header %}
+<div class="m-4 m-lg-5">
+    <h2 class="display-5 fw-bold">Detalle de Usuario</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ usuario.nombre }} {{ usuario.apellido }}</h5>
+        <p class="card-text">Email: {{ usuario.email }}</p>
+        {% if usuario.avatar %}
+            <img src="{{ usuario.avatar.url }}" class="img-fluid rounded-circle" alt="Avatar de {{ usuario.nombre }}">
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

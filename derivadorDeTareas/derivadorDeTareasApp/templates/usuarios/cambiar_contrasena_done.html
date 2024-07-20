@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Contraseña Cambiada{% endblock %}
+
+{% block header %}
+<div class="m-4 m-lg-5">
+    <h2 class="display-5 fw-bold">Contraseña Cambiada</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+<p class="fs-4">Tu contraseña ha sido cambiada exitosamente.</p>
+<a href="{% url 'menu_usuario' %}" class="btn btn-primary">Volver al Menú Usuario</a>
+{% endblock %}

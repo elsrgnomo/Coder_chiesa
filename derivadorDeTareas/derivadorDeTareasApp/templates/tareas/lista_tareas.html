@@ -1,19 +1,72 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lista de Tareas</title>
-</head>
-<body>
-    <h1>Lista de Tareas</h1>
-    <ul>
+{% extends 'base.html' %}
+
+{% block title %}Lista de Tareas{% endblock %}
+
+{% block breadcrumb %}
+<a href="{% if user.is_superuser %}{% url 'menu_admin' %}{% else %}{% url 'menu_usuario' %}{% endif %}" class="breadcrumb-item">Menú</a>
+<span class="breadcrumb-item active">Lista de Tareas</span>
+{% endblock %}
+
+{% block header %}
+<div class="m-4 m-lg-5">
+    <h2 class="display-5 fw-bold">Lista de Tareas</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+<form method="get" class="mb-3">
+    <div class="row">
+        <div class="col-md-10">
+            <input type="text" name="q" class="form-control" placeholder="Buscar tareas por nombre" value="{{ request.GET.q }}">
+        </div>
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </div>
+    </div>
+</form>
+
+<div class="d-flex justify-content-end mb-3">
+    <a href="{% url 'crear_tarea' %}" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Crear Tarea
+    </a>
+</div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Número Tarea</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Fecha Inicio</th>
+            <th scope="col">Fecha Fin</th>
+            <th scope="col">Urgencia</th>
+            <th scope="col">Tarea Anterior</th>
+            <th scope="col">Asignada Por</th>
+            <th scope="col">Último Mensaje</th>
+            <th scope="col">Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
         {% for tarea in tareas %}
-        <li>
-            <a href="{% url 'detalle_tarea' tarea.pk %}">{{ tarea.nombre }}</a> - {{ tarea.estado }}
-        </li>
+        <tr>
+            <td>{{ tarea.numero_tarea }}</td>
+            <td>{{ tarea.nombre }}</td>
+            <td>{{ tarea.fecha_inicio }}</td>
+            <td>{{ tarea.fecha_fin }}</td>
+            <td>{{ tarea.urgencia }}</td>
+            <td>{% if tarea.tarea_anterior %}{{ tarea.tarea_anterior.nombre }}{% else %}N/A{% endif %}</td>
+            <td>{% if tarea.asignada_por %}{{ tarea.asignada_por.nombre }}{% else %}N/A{% endif %}</td>
+            <td>{% if tarea.ultimo_comentario %}{{ tarea.ultimo_comentario.comentario }}{% else %}No hay mensajes{% endif %}</td>
+            <td>
+                <a href="{% url 'editar_tarea' tarea.pk %}" class="btn btn-sm btn-primary">
+                    <i class="bi bi-pencil-square"></i> Editar
+                </a>
+                {% if user.is_superuser %}
+                <a href="{% url 'eliminar_tarea' tarea.pk %}" class="btn btn-sm btn-danger">
+                    <i class="bi bi-trash"></i> Eliminar
+                </a>
+                {% endif %}
+            </td>
+        </tr>
         {% endfor %}
-    </ul>
-    <form method="get" action="{% url 'menu_principal' %}">
-        <button type="submit">Volver al Menú Principal</button>
-    </form>
-</body>
-</html>
+    </tbody>
+</table>
+{% endblock %}

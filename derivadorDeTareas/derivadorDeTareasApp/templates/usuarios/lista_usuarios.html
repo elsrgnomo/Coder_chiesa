@@ -1,17 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Lista de Usuarios</title>
-</head>
-<body>
-    <h1>Lista de Usuarios</h1>
-    <a href="{% url 'registrar_usuario' %}">Registrar Usuario</a>
-    <ul>
-        {% for usuario in usuarios %}
-        <li>
-            {{ usuario.nombre }} {{ usuario.apellido }} - <a href="{% url 'editar_usuario' usuario.pk %}">Editar</a>
-        </li>
-        {% endfor %}
-    </ul>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Lista de Usuarios{% endblock %}
+
+{% block header %}
+<div class="m-4 m-lg-5">
+    <h2 class="display-5 fw-bold">Lista de Usuarios</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+<ul class="list-group">
+    {% for usuario in usuarios %}
+        <li class="list-group-item"><a href="{% url 'detalle_usuario' usuario.pk %}">{{ usuario.nombre }} {{ usuario.apellido }}</a></li>
+    {% endfor %}
+</ul>
+{% endblock %}

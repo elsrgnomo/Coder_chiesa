@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Cambiar Contraseña{% endblock %}
+
+{% block header %}
+<div class="m-4 m-lg-5">
+    <h2 class="display-5 fw-bold">Cambiar Contraseña</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary mt-3">Cambiar Contraseña</button>
+</form>
+{% endblock %}

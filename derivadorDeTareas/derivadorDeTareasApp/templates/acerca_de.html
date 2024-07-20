@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Acerca de mí{% endblock %}
+
+{% block header %}
+<div class="m-4 m-lg-5">
+    <h1 class="display-5 fw-bold">Acerca de mí</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <p class="fs-4">Desarrollador: Fernando Chiesa</p>
+    <p class="fs-4">Curso Python Coder</p>
+    <p class="fs-4">Comisión #57810</p>
+    <img src="{% static 'img/coderhouse_logo.png' %}" alt="Coderhouse Logo" style="height: 50px;">
+    <img src="{% static 'img/python_logo.png' %}" alt="Python Logo" style="height: 50px;">
+    <br>
+    <a href="www.linkedin.com/in/fernando-chiesa-106b2573" class="btn btn-primary mt-3">
+        <i class="bi bi-linkedin"></i> LinkedIn
+    </a>
+</div>
+{% endblock %}

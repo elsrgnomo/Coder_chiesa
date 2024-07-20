@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group, Permission
@@ -19,10 +20,13 @@ class UsuarioManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class Usuario(AbstractBaseUser, PermissionsMixin):
+    id_unico = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     nombre = models.CharField(max_length=255)
     apellido = models.CharField(max_length=255)
+    avatar = models.ImageField(upload_to='avatars/', blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
 
@@ -45,6 +49,7 @@ class Usuario(AbstractBaseUser, PermissionsMixin):
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['nombre', 'apellido']
+
 
     def __str__(self):
         return f'{self.nombre} {self.apellido}'
@@ -71,16 +76,17 @@ class Tarea(models.Model):
     tarea_posterior = models.ForeignKey('self', related_name='anterior', on_delete=models.SET_NULL, null=True, blank=True)
     numero_tarea = models.AutoField(primary_key=True)
     estado = models.CharField(max_length=20, choices=ESTADO_CHOICES, default='no iniciado')
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name='tareas')
 
     def __str__(self):
         return self.nombre
-
+    
 class Comentario(models.Model):
     tarea = models.ForeignKey(Tarea, related_name='comentarios', on_delete=models.CASCADE)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     comentario = models.TextField()
     fecha = models.DateTimeField(auto_now_add=True)
-
+    
     def __str__(self):
         return f'Comentario de {self.usuario} en {self.tarea}'
+    

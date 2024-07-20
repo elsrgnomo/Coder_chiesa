@@ -1,26 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ tarea.nombre }}</title>
-</head>
-<body>
-    <h1>{{ tarea.nombre }}</h1>
-    <p>{{ tarea.descripcion }}</p>
-    <p>Estado: {{ tarea.estado }}</p>
-    <h2>Comentarios</h2>
-    <ul>
-        {% for comentario in tarea.comentarios.all %}
-        <li>{{ comentario.comentario }} - {{ comentario.fecha }}</li>
-        {% endfor %}
-    </ul>
-    <h2>Añadir Comentario</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Añadir</button>
-    </form>
-    <form method="get" action="{% url 'menu_principal' %}">
-        <button type="submit">Volver al Menú Principal</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Detalle de Tarea{% endblock %}
+
+{% block header %}
+<div class="m-4 m-lg-5">
+    <h2 class="display-5 fw-bold">Detalle de Tarea</h2>
+    <a href="{% if user.is_superuser %}{% url 'menu_admin' %}{% else %}{% url 'menu_usuario' %}{% endif %}" class="breadcrumb-item">Menú</a>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">{{ tarea.nombre }}</h5>
+        <p class="card-text">{{ tarea.descripcion }}</p>
+        <p class="card-text">Fecha de Inicio: {{ tarea.fecha_inicio }}</p>
+        <p class="card-text">Fecha de Fin: {{ tarea.fecha_fin }}</p>
+        <p class="card-text">Prioridad: {{ tarea.prioridad }}</p>
+        <p class="card-text">Urgencia: {{ tarea.urgencia }}</p>
+        <p class="card-text">Estado: {{ tarea.estado }}</p>
+    </div>
+</div>
+
+<h3 class="mt-4">Comentarios</h3>
+<ul class="list-group">
+    {% for comentario in tarea.comentarios.all %}
+        <li class="list-group-item">{{ comentario.comentario }} - {{ comentario.usuario.nombre }} {{ comentario.usuario.apellido }}</li>
+    {% endfor %}
+</ul>
+
+<h3 class="mt-4">Agregar Comentario</h3>
+<form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary mt-3">Agregar</button>
+</form>
+{% endblock %}

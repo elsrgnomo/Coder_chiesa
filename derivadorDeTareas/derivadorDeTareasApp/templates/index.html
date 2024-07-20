@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Iniciar Sesión{% endblock %}
+
+{% block header %}
+<div class="m-4 m-lg-5">
+    <h2 class="display-5 fw-bold">Iniciar Sesión</h2>
+</div>
+{% endblock %}
+
+{% block content %}
+<form method="post" class="needs-validation" novalidate>
+    {% csrf_token %}
+    <div class="form-group">
+        <label for="email">Correo electrónico:</label>
+        <input type="email" class="form-control" name="email" id="email" required>
+        <div class="invalid-feedback">
+            Por favor ingrese un correo electrónico válido.
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Contraseña:</label>
+        <input type="password" class="form-control" name="password" id="password" required>
+        <div class="invalid-feedback">
+            Por favor ingrese su contraseña.
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Iniciar sesión</button>
+</form>
+{% if error %}
+    <div class="alert alert-danger mt-3">{{ error }}</div>
+{% endif %}
+<a href="{% url 'registro_usuario' %}" class="btn btn-link mt-3">Registrarse</a>
+{% endblock %}
